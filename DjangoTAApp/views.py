@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from django.views import View
 from Commands import CommandHandler
+from DjangoTAApp.models import User,Courses,Labs
 
 # Create your views here.
 com = CommandHandler()

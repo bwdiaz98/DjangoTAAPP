@@ -1,34 +1,30 @@
 from User import User
 from Course import Course
+from DjangoTAApp.models import User,Courses,Labs
+
 class TASchedulingApp:
   LoggedInUser = None
   def __init__(self):
-    LoggedInUser = None
+    self.LoggedInUser = None
 
-  def login(self,sUsername,sPassword):
-    file_object = open("Accounts.txt","r")
-    for line in file_object:
-      lsUser = line.split(",")
-      if(lsUser[0]==sUsername and lsUser[1]==sPassword):
-        self.LoggedInUser = User(sUsername,sPassword,int(lsUser[2]))
-    if self.LoggedInUser == None:
-      print("could not login")
-      return False
-    else:
-      print("Logged In!")
-      return True
+  def login(self, sUsername, sPassword):
+    users = list(User.objects.filter(username=sUsername))
+    for user in users:
+        if user.password == sPassword:
+            self.LoggedInUser = User(sUsername, sPassword, user.clearance)
+            return True
+    return False
 
   def createAccount(self,sUsername,sPassword,iClearance):
+
     if self.LoggedInUser is not None and self.LoggedInUser.clearance < 3 and "," not in sUsername and "," not in sPassword and isinstance(iClearance, int):
-      oUser = User(sUsername,sPassword,iClearance)
-      file_object = open("Accounts.txt","a")
-      file_object.write(sUsername + "," + sPassword + "," + str(iClearance) + "\n")
-      file_object.close()
-      print("Created Account")
-      return True
-    else:
-      print("Invalid command")
-      return False
+        users = list(User.objects.filter(username=sUsername))
+        if len(users) > 0:
+            return False
+        else:
+            user = User(username=sUsername, password=sPassword, clearance=iClearance)
+            user.save()
+            return True
       
   def editAccount(self, tUsername, nUsername, nPassword, nClearance):
     if self.LoggedInUser is not None and self.LoggedInUser.clearance < 3:
