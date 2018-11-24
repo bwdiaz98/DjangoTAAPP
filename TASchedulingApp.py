@@ -8,12 +8,15 @@ class TASchedulingApp:
         self.LoggedInUser = None
 
     def login(self, sUsername, sPassword):
-        users = list(User.objects.filter(username=sUsername))
-        for user in users:
-            if user.password == sPassword:
-                self.LoggedInUser = User(sUsername, sPassword, user.clearance)
-                return True
-        return False
+        if self.LoggedInUser is None:
+            users = list(User.objects.filter(username=sUsername))
+            for user in users:
+                if user.password == sPassword:
+                    self.LoggedInUser = User(sUsername, sPassword, user.clearance)
+                    return True
+            return False
+        else:
+            return False
 
     def logout(self):
         self.LoggedInUser = None
