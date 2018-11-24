@@ -75,3 +75,29 @@ class TASchedulingApp:
         else:
             return False
 
+    def displayAccounts(self):
+        out = []
+        if self.LoggedInUser is not None and self.LoggedInUser.clearance < 3:
+            users = list(User.objects.all())
+            for user in users:
+                out.append("(" + user.username + ", " + user.password + ", " + str(user.clearance) + ")")
+            return out
+        return "Could Not Display Accounts"
+
+    def displayCourses(self):
+        out = []
+        if self.LoggedInUser is not None and self.LoggedInUser.clearance < 3:
+            courses = list(Courses.objects.all())
+            for course in courses:
+                out.append("(" + str(course.courseID) + ", " + course.coursename + ", " + course.professor + ")")
+            return out
+        return "Could Not Display Courses"
+
+    def displayLabs(self):
+        out = []
+        if self.LoggedInUser is not None and self.LoggedInUser.clearance < 3:
+            labs = list(Labs.objects.all())
+            for lab in labs:
+                out.append("(" + str(lab.LabID) + ", " + str(lab.courseID) + ", " + lab.tausername + ")")
+            return out
+        return "Could Not Display Labs"

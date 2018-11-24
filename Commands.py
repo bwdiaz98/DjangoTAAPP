@@ -47,13 +47,13 @@ class CommandHandler():
             else:
                 return "Could Not Delete Account"
         elif args[0] == "DisplayAccounts":
-            return displayAccounts()
+            return app.displayAccounts()
 
         elif args[0] == "DisplayCourses":
-            return displayCourses()
+            return app.displayCourses()
 
         elif args[0] == "DisplayLabs":
-            return displayLabs()
+            return app.displayLabs()
 
         elif args[0] == "Help":
             return commandlist()
@@ -74,30 +74,4 @@ def commandlist():
     out.append("DisplayLabs")
     return out
 
-def displayAccounts():
-    out = []
-    if app.LoggedInUser is not None and app.LoggedInUser.clearance < 3:
-        users = list(User.objects.all())
-        for user in users:
-            out.append("(" + user.username + ", " + user.password + ", " + str(user.clearance) + ")")
-        return out
-    return "Could Not Display Accounts"
-
-def displayCourses():
-    out = []
-    if app.LoggedInUser is not None and app.LoggedInUser.clearance < 3:
-        courses = list(Courses.objects.all())
-        for course in courses:
-            out.append("(" + str(course.courseID) + ", " + course.coursename + ", " + course.professor + ")")
-        return out
-    return "Could Not Display Courses"
-
-def displayLabs():
-    out = []
-    if app.LoggedInUser is not None and app.LoggedInUser.clearance < 3:
-        labs = list(Labs.objects.all())
-        for lab in labs:
-            out.append("(" + str(lab.LabID) + ", " + str(lab.courseID) + ", " + lab.tausername + ")")
-        return out
-    return "Could Not Display Labs"
 
