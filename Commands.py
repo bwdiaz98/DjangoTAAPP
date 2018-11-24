@@ -48,21 +48,21 @@ class CommandHandler():
                 return "Could Not Delete Account"
         elif args[0] == "DisplayAccounts":
             users = list(User.objects.all())
-            out = ""
+            out = []
             for user in users:
-                out += "(" + user.username + ", " + user.password + ", " + str(user.clearance) + ")"
+                out.append("(" + user.username + ", " + user.password + ", " + str(user.clearance) + ")")
             return out
         elif args[0] == "DisplayCourses":
             courses = list(Courses.objects.all())
-            out = ""
+            out = []
             for course in courses:
-                out += "(" + str(course.courseID) + ", " + course.coursename + ", " + course.professor + ")"
+                out.append("(" + str(course.courseID) + ", " + course.coursename + ", " + course.professor + ")")
             return out
         elif args[0] == "DisplayLabs":
             labs = list(Labs.objects.all())
-            out = ""
+            out = []
             for lab in labs:
-                out += "(" + str(lab.LabID) + ", " + str(lab.courseID) + ", " + lab.tausername + ")"
+                out.append("(" + str(lab.LabID) + ", " + str(lab.courseID) + ", " + lab.tausername + ")")
             return out
         else:
             return "Error"

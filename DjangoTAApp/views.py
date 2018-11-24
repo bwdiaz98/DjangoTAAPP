@@ -13,4 +13,7 @@ class Home(View):
 
     def post(self, request):
         out = com.command(request.POST["command"].split())
-        return render(request, "Main.html", {'out': out})
+        if type(out) is list:
+            listed = out
+            out = ""
+        return render(request, "Main.html", {'out': out, 'listed': listed})

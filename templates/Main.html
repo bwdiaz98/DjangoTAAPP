@@ -7,6 +7,9 @@
         {% csrf_token %}
         command: <input type="text" name="command"/><input type="submit"/>
     </form>
+    {% for o in listed %}
+        <p>{{ o }}</p>
+    {% endfor %}
     <div id="out">{{out}}</div>
 </head>
 <body>
