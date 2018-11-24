@@ -50,17 +50,11 @@ class CommandHandler():
             return displayAccounts()
 
         elif args[0] == "DisplayCourses":
-            courses = list(Courses.objects.all())
-            out = []
-            for course in courses:
-                out.append("(" + str(course.courseID) + ", " + course.coursename + ", " + course.professor + ")")
-            return out
+            return displayCourses()
+
         elif args[0] == "DisplayLabs":
-            labs = list(Labs.objects.all())
-            out = []
-            for lab in labs:
-                out.append("(" + str(lab.LabID) + ", " + str(lab.courseID) + ", " + lab.tausername + ")")
-            return out
+            return displayLabs()
+
         elif args[0] == "Help":
             return commandlist()
         else:
