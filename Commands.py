@@ -47,11 +47,8 @@ class CommandHandler():
             else:
                 return "Could Not Delete Account"
         elif args[0] == "DisplayAccounts":
-            users = list(User.objects.all())
-            out = []
-            for user in users:
-                out.append("(" + user.username + ", " + user.password + ", " + str(user.clearance) + ")")
-            return out
+            return displayAccounts()
+
         elif args[0] == "DisplayCourses":
             courses = list(Courses.objects.all())
             out = []
@@ -64,6 +61,42 @@ class CommandHandler():
             for lab in labs:
                 out.append("(" + str(lab.LabID) + ", " + str(lab.courseID) + ", " + lab.tausername + ")")
             return out
+        elif args[0] == "Help":
+            return commandlist()
         else:
             return "Error"
 
+def commandlist():
+    out = ["Commands"]
+    out.append("Login <username> <password>")
+    out.append("Logout")
+    out.append("CreateAccount <username> <password> <clearance(1-4)>")
+    out.append("EditAccount <username> <new username> <new password> <new clearance(1-4)>")
+    out.append("CreateCourse <course ID> <course name> <professor name>")
+    out.append("CreateLab <lab ID> <course ID> <ta name>")
+    out.append("DeleteAccount <username>")
+    out.append("DisplayAccounts")
+    out.append("DisplayCourses")
+    out.append("DisplayLabs")
+    return out
+
+def displayAccounts():
+    users = list(User.objects.all())
+    out = []
+    for user in users:
+        out.append("(" + user.username + ", " + user.password + ", " + str(user.clearance) + ")")
+    return out
+
+def displayCourses():
+    courses = list(Courses.objects.all())
+    out = []
+    for course in courses:
+        out.append("(" + str(course.courseID) + ", " + course.coursename + ", " + course.professor + ")")
+    return out
+
+def displayLabs():
+    labs = list(Labs.objects.all())
+    out = []
+    for lab in labs:
+        out.append("(" + str(lab.LabID) + ", " + str(lab.courseID) + ", " + lab.tausername + ")")
+    return out
