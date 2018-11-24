@@ -75,22 +75,29 @@ def commandlist():
     return out
 
 def displayAccounts():
-    users = list(User.objects.all())
     out = []
-    for user in users:
-        out.append("(" + user.username + ", " + user.password + ", " + str(user.clearance) + ")")
-    return out
+    if app.LoggedInUser is not None and app.LoggedInUser.clearance < 3:
+        users = list(User.objects.all())
+        for user in users:
+            out.append("(" + user.username + ", " + user.password + ", " + str(user.clearance) + ")")
+        return out
+    return "Could Not Display Accounts"
 
 def displayCourses():
-    courses = list(Courses.objects.all())
     out = []
-    for course in courses:
-        out.append("(" + str(course.courseID) + ", " + course.coursename + ", " + course.professor + ")")
-    return out
+    if app.LoggedInUser is not None and app.LoggedInUser.clearance < 3:
+        courses = list(Courses.objects.all())
+        for course in courses:
+            out.append("(" + str(course.courseID) + ", " + course.coursename + ", " + course.professor + ")")
+        return out
+    return "Could Not Display Courses"
 
 def displayLabs():
-    labs = list(Labs.objects.all())
     out = []
-    for lab in labs:
-        out.append("(" + str(lab.LabID) + ", " + str(lab.courseID) + ", " + lab.tausername + ")")
-    return out
+    if app.LoggedInUser is not None and app.LoggedInUser.clearance < 3:
+        labs = list(Labs.objects.all())
+        for lab in labs:
+            out.append("(" + str(lab.LabID) + ", " + str(lab.courseID) + ", " + lab.tausername + ")")
+        return out
+    return "Could Not Display Labs"
+

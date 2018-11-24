@@ -9,27 +9,27 @@ class Testcode(unittest.TestCase):
   def test_create_lab_invalid_login(self):
     
     self.App.LoggedInUser is None
-    self.assertEqual("Invalid command",self.App.createLab("John","361","1"))
+    self.assertEqual("Invalid command", self.App.createLab("John", "361", "1"))
   
   def test_create_lab_invalid_clearance(self):
     
-    self.App.LoggedInUser = User("TA","TA",4)
-    self.assertEqual("Invalid command",self.App.createLab("John","361","1"))
+    self.App.LoggedInUser = User("TA", "TA", )
+    self.assertEqual("Invalid command", self.App.createLab("John", "361", "1"))
   
   def test_create_lab_succesful(self):
     
-    self.App.LoggedInUser = User("Admin","Admin",1)
-    self.assertEqual("Lab Created",self.App.createLab("John","361","1"))
+    self.App.LoggedInUser = User("Admin", "Admin", 1)
+    self.assertEqual("Lab Created", self.App.createLab("John", "361", "1"))
 
   def test_create_lab_no_class(self):
     
     self.App.LoggedInUser = User("Admin","Admin",1)
-    self.assertEqual("Course does not exist",self.App.createLab("John","431","1"))
+    self.assertEqual("Course does not exist", self.App.createLab("John", "431", "1"))
 
   def test_create_lab_succesful(self):
     
-    self.App.LoggedInUser = User("Admin","Admin",1)
-    self.assertEqual("TA does not exist",self.App.createLab("Jim","361","1"))
+    self.App.LoggedInUser = User("Admin", "Admin", 1)
+    self.assertEqual("TA does not exist", self.App.createLab("Jim", "361", "1"))
   
 
   def test_create_account_successful(self):
@@ -70,11 +70,11 @@ class Testcode(unittest.TestCase):
 
   def test_create_course_successful(self):
     self.App.LoggedInUser = User("Admin", "Admin", 1)
-    self.assertTrue(self.App.createCourses("234", "Example", "rock"))
+    self.assertTrue(self.App.createCourse("234", "Example", "rock"))
 
   def test_create_course_unsuccessful_badClearance(self):
     self.App.LoggedInUser = User("TA", "TA", 4)
-    self.assertFalse(self.App.createCourses("234", "Example", "rock"))
+    self.assertFalse(self.App.createCourse("234", "Example", "rock"))
 
   def test_delete_account_invalid(self):
     self.App.LoggedInUser = User("Admin", "Admin", 1)
@@ -118,4 +118,5 @@ runner = unittest.TextTestRunner()
 res=runner.run(suite)
 print(res)
 print("*"*20)
-for i in res.failures: print(i[1])
+for i in res.failures:
+    print(i[1])
