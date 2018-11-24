@@ -17,3 +17,4 @@ class Home(View):
             listed = out
             out = ""
         return render(request, "Main.html", {'out': out, 'listed': listed})
+
