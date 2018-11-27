@@ -104,12 +104,12 @@ class TASchedulingApp:
                 out.append("(" + str(lab.LabID) + ", " + str(lab.courseID) + ", " + lab.tausername + ")")
             return out
         return "Could Not Display Labs"
-     def editCourse(self, uniqId, coursename, professor):
+     def editCourse(self, uniqId,newUniqId, coursename, professor):
         if self.LoggedInUser is not None and self.LoggedInUser.clearance < 2:
             courses = list(Courses.objects.filter(username=uniqId))
             if len(courses) == 1:
                 Courses.objects.filter(courseID=uniqId).delete()
-                course = Courses(courseID=uniqId, coursename=coursename, professor=professor)
+                course = Courses(courseID=newUniqId, coursename=coursename, professor=professor)
                 course.save()
                 return True
             else:
