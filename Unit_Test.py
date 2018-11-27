@@ -111,7 +111,21 @@ class Testcode(unittest.TestCase):
 
   #tests definitely need some work. I'm having trouble with unit tests.
 
+  def test_edit_course_successful(self):
+    self.App.LoggedInUser = User("Admin", "Admin", 1)
+    self.App.createCourse("234", "Example", "rock")
+    self.assertTrue(self.App.editCourse("234", "Example2", "sorenson"))
 
+  def test_edit_course_unsuccessful(self):
+    self.App.LoggedInUser = User("Admin", "Admin", 1)
+    self.App.createCourse("234", "Example", "rock")
+    self.App.logout()
+    self.App.LoggedInUser = User("TA", "TA", 4)
+    self.assertFalse(self.App.editCourse("234", "Example", "rock"))
+    self.App.logout()
+    self.App.LoggedInUser = User("Admin", "Admin", 1)
+    self.assertFalse(self.App.editCourse("235", "Example", "rock"))
+  
 suite = unittest.TestSuite()
 suite.addTest(unittest.makeSuite(Testcode))
 runner = unittest.TextTestRunner()
