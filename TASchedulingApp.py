@@ -72,11 +72,13 @@ class TASchedulingApp:
 
 
     def deleteAccount(self, sUsername):
-        if len(list(User.objects.filter(username=sUsername))) > 0:
-            User.objects.filter(username=sUsername).delete()
-            return True
-        else:
-            return False
+        if self.LoggedInUser is not None and self.LoggedInUser.clearance < 3:
+            if len(list(User.objects.filter(username=sUsername))) > 0:
+                User.objects.filter(username=sUsername).delete()
+                return True
+            else:
+                return False
+        return "Could Not Delete Account"
 
     def displayAccounts(self):
         out = []

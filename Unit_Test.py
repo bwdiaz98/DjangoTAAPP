@@ -1,4 +1,5 @@
 import unittest
+from DjangoTAApp.models import User
 from TASchedulingApp import TASchedulingApp
 from User import User
 
@@ -78,16 +79,16 @@ class Testcode(unittest.TestCase):
 
   def test_delete_account_invalid(self):
     self.App.LoggedInUser = User("Admin", "Admin", 1)
-    self.assertEquals(self.App.deleteAccount("jack"), "No account jack found")
+    self.assertFalse(self.App.deleteAccount("jack"))
   def test_delete_account_valid(self):
     self.App.LoggedInUser = User("Admin", "Admin", 1)
-    file_object = open("Accounts.txt","a")
+    file_object = open("Accounts.txt", "a")
     file_object.write("bob,bob,2")
     file_object.close()
-    self.assertEquals(self.App.deleteAccount("bob"), "account bob deleted")
+    self.assertTrue(self.App.deleteAccount("bob"))
   def test_delete_account_invalid_clearance(self):
     self.App.LoggedInUser = User("TA", "TA", 4)
-    self.assertEquals(self.App.deleteAccount("jack"), "Invalid command")
+    self.assertEquals(self.App.deleteAccount("jack"), "Could Not Delete Account")
 
     #Brandon's
   def test_edit_user_success(self):
