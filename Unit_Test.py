@@ -1,5 +1,4 @@
 import unittest
-from DjangoTAApp.models import User
 from TASchedulingApp import TASchedulingApp
 from User import User
 
